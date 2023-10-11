@@ -1,10 +1,16 @@
 # Default email: Saurabh@gmail.com
 # Default Password: Saurabh
 
-# Default iD and Password
-# email:  kiran.gosavi@techprimelab.com
-# Pass:  mypass321
+# Default ID and Password
+email  kiran.gosavi@techprimelab.com
+Pass:  mypass321
 
+email: Saurabh@gmail.com
+Password: Saurabh
+
+
+# Backend repo
+https://github.com/Saurabh7762/techprimebackend
 
 # Getting Started with Create React App
 
