@@ -12,64 +12,58 @@ import "./DashbordMain.css";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
 
 function DashbordMain() {
-  const data = [
-    {
-      name: "STR",
-      Total: 4000,
-      Close: 2400,
-      amt: 2400,
-    },
-    {
-      name: "FIN",
-      Total: 3000,
-      Close: 1398,
-      amt: 2210,
-    },
-    {
-      name: "QLT",
-      Total: 2000,
-      Close: 9800,
-      amt: 2290,
-    },
-    {
-      name: "MAN",
-      Total: 2780,
-      Close: 3908,
-      amt: 2000,
-    },
-    {
-      name: "STO",
-      Total: 1890,
-      Close: 4800,
-      amt: 2181,
-    },
-    {
-      name: "HR",
-      Total: 2390,
-      Close: 3800,
-      amt: 2500,
-    },
-  ];
 
-  const [dataa, setData] = useState([]);
-  const [total, setTotal] = useState(8);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    // Fetch data from your API
-    fetch("https://techprimebackend-gnyo.onrender.com/api/project") // Replace with your API endpoint
+    // Make a GET request to the API to fetch the data
+    fetch("https://techprimebackend-gnyo.onrender.com/api/department-data")
       .then((response) => response.json())
-      .then((dataa) => {
-        setData(dataa);
-
-        // Calculate the total based on specific criteria
-        const calculatedTotal = dataa
-          .filter((item) => item.someCriteria === "yourCriteria") // Replace with your filtering criteria
-          .reduce((acc, item) => acc + item.amount, 0); // Replace 'amount' with the field you want to sum
-
-        setTotal(calculatedTotal);
+      .then((responseData) => {
+        setData(responseData);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
+
+  const [responseData, setResponseData] = useState([]);
+  const [totalIds, setTotalIds] = useState(0);
+  const [totalClosedIds, setTotalClosedIds] = useState(0);
+  const [totalRuningIds, setTotalRuningIds] = useState(0);
+  const [totalCancelIds, setTotalCancelIds] = useState(0);
+  useEffect(() => {
+    // Make an HTTP request to the API
+    fetch("https://techprimebackend-gnyo.onrender.com/api/project")
+      .then((response) => response.json())
+      .then((json) => {
+        setResponseData(json); // Store the API response in the state
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Calculate the total number of "id" values
+    if (responseData && Array.isArray(responseData)) {
+      const ids = responseData.map((item) => item.id);
+      const total = ids.length;
+      setTotalIds(total);
+
+      //for close
+      const closedIds = responseData.filter((item) => item.status === "Closed");
+      setTotalClosedIds(closedIds.length);
+
+      //Running
+      const runningIds = responseData.filter((item) => item.status === "Running");
+      setTotalRuningIds(runningIds.length);
+
+      //cancel
+      const cancelIds = responseData.filter((item) => item.status === "Cancel");
+      setTotalCancelIds(cancelIds.length);
+    }
+  }, [responseData]);
 
   return (
     <main className="main-container">
@@ -84,21 +78,21 @@ function DashbordMain() {
           <div className="card-style"></div>
           <div className="card-inner">
             <h3>Total</h3>
-            <h1>{total}</h1>
+            <h1>{totalIds}</h1>
           </div>
         </div>
         <div className="card">
           <div className="card-style"></div>
           <div className="card-inner">
             <h3>Closed</h3>
-            <h1>4</h1>
+            <h1>{totalClosedIds}</h1>
           </div>
         </div>
         <div className="card">
           <div className="card-style"></div>
           <div className="card-inner">
             <h3>Running</h3>
-            <h1>3</h1>
+            <h1>{totalRuningIds}</h1>
           </div>
         </div>
         <div className="card">
@@ -112,16 +106,13 @@ function DashbordMain() {
           <div className="card-style"></div>
           <div className="card-inner">
             <h3>Cancelled</h3>
-            <h1>8</h1>
+            <h1>{totalCancelIds}</h1>
           </div>
         </div>
       </div>
-
       <div className="charts">
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart
-            width={500}
-            height={300}
             data={data}
             margin={{
               top: 10,
@@ -130,12 +121,12 @@ function DashbordMain() {
               bottom: 5,
             }}
           >
-            <XAxis dataKey="name" />
+            <XAxis dataKey="_id" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Total" fill="#8884d8" />
-            <Bar dataKey="Close" fill="#82ca9d" />
+            <Bar dataKey="totalData" fill="#8884d8" />
+            <Bar dataKey="totalClosed" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>

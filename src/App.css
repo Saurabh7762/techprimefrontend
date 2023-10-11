@@ -12,15 +12,86 @@
     color: black;
     background-color: #ffffff;
     box-shadow: 0px 0px 5px rgba(26, 112, 211, 0.3);
-    gap: 10px;
+}
+.Projectlisttable{
+    margin: 20px;
+    padding-top: 20px;
 }
 .ProjectlistMain-cards {
     margin-top: 30px;
     width: 100%;
     border-radius: 5px;
-        height: 80vh;
-        color: black;
-        background-color: #ffffff;
-        box-shadow: 0px 0px 5px rgba(26, 112, 211, 0.3);
-        gap: 10px;
+    height: 80vh;
+    color: black;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 5px rgba(26, 112, 211, 0.3);
 }
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th{
+    background-color: aliceblue;
+    padding: 5px 0 5px 0;
+}
+th, td{
+    text-align: left;
+    padding: 8px  8px;
+}
+tr:nth-child(even){
+    background-color: aliceblue;
+}
+
+.pagination{
+    display: flex;
+    align-items: row;
+    gap: 10px;
+    justify-content: center;
+}
+
+.page-item{
+    list-style: none;
+    padding: 7px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(26, 112, 211, 0.3);
+}
+.page-link{
+text-decoration: none;
+}
+.active{
+    background-color: #2379d5;
+    color: white;
+}
+
+td p{
+    margin: 5px 0 5px 0;
+}
+.projectlistStatusbtn{
+    background-color: white;
+    color: #2379d5;
+    border: 0.5px solid #2379d5;
+    width: 55px;
+    margin: 0;
+    padding: 5px 0 5px 0;
+}
+.projectlistStatusbtn:hover{
+    color: white;
+
+}
+.projectlisttop{
+    display: flex;
+    justify-content: space-between;
+}
+.ProjectlistSinput{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-bottom: 2px;
+}
+#SortBy{
+    border: none;
+}
+.active-button{
+    background-color: #2379d5;
+    color: white;
+}
+
