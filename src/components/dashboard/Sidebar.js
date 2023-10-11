@@ -23,9 +23,7 @@ function Sidebar() {
         </li>
         <div className="logout">
           <li className="sidebar-list-item">
-            <a href="">
-              <Logout />
-            </a>
+            <Link to="/"> <Logout /></Link>
           </li>
         </div>
       </ul>

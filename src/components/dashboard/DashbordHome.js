@@ -1,16 +1,17 @@
 import Sidebar from "./Sidebar";
-import Main from "./Main";
+import DashbordMain from "./DashbordMain";
 
-import "./Home.css";
+import "./DashbordHome.css";
 
 function Home() {
 
   return (
     <div className="grid-container">
-      <Sidebar/>
-      <Main />
+      <Sidebar />
+      <DashbordMain />
     </div>
   );
 }
+
 
 export default Home;

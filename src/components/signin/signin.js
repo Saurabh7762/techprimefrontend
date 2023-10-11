@@ -7,6 +7,7 @@ import { useState } from "react";
 function Signin() {
   const [email, setEmail]=useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState("");
 
 
   async function loginUser(event) {
@@ -32,7 +33,7 @@ function Signin() {
       localStorage.setItem("token", data.user);
       window.location.href = "/Dashbord";
     } else {
-      alert("Please check your username and password");
+      setError("Invalid credentials");
     }
   }
 
@@ -58,7 +59,6 @@ function Signin() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <p className="error">Invalid credentials</p>
               </div>
               <div className="signinform-group">
                 <label htmlFor="password">Password</label>
@@ -71,7 +71,7 @@ function Signin() {
                   required
                 />
                 <div className="signinerrorandforget">
-                  <p className="error">Invalid credentials</p>
+                  {/* <p className="error">Invalid credentials</p> */}
                   <p className="signinforgetpassword">Forget password?</p>
                 </div>
               </div>
@@ -80,7 +80,7 @@ function Signin() {
               </div>
             </form>
           </div>
-          <p className="error">Invalid credentials</p>
+          <p className="error">{error}</p>
         </div>
       </div>
     </>
