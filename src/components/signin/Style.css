@@ -1,0 +1,132 @@
+/* Login.css */
+
+.signinbackground{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    
+}
+
+.signinbacgroundstye{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 10%;
+    gap: 20px;
+}
+.signinfirstp {
+    color: white;
+}
+.signinlogin-container {
+    width: 380px;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(26, 112, 211, 0.4);
+    background-color:rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.signinform-group {
+    padding: 20px 15px 20px 15px;
+}
+.signinform-group:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: block;
+    font-weight: 300;
+    font-size: 15px;
+    color: gray;
+    margin-bottom: 3px;
+}
+
+.signinform-group input {
+    width: 320px;
+    padding: 15px 0 15px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.error{
+    margin: 5px 0 0 0;
+    font-weight: 400;
+    font-size: 13px;
+    color: red;
+}
+.signinerrorandforget{
+    display: flex;
+    justify-content: space-between;
+}
+.signinforgetpassword{
+    color: #0056b3;
+    margin: 5px 0 0 0;
+    font-weight: 400;
+    font-size: 13px;
+    cursor: pointer;
+}
+button {
+    width: 150px;
+    padding: 10px;
+    background-color: #155fb3;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #007bff;
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+        background-color: white;
+    }
+    .back{
+        display: none;
+    }
+    .background{
+        background-image: url("../image/loginbg1copy.svg");
+        background-repeat: no-repeat;
+    }
+    .bacgroundstye {
+        position:absolute;
+        top: 10%;
+        gap: 20px;
+    }
+    .login-container {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        background-color:none;  
+        margin-top: 80px;
+        display: block;
+    }
+    input {
+        width: 320px;
+        padding: 15px 0 15px 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin: 0px;
+        align-items: center;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #155fb3;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+}

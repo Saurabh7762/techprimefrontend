@@ -1,0 +1,45 @@
+#sidebar {
+    grid-area: sidebar;
+    height: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar-list {
+    padding: 0;
+    list-style-type: none;
+}
+
+.sidebar-list-item {
+    padding: 20px 20px 20px 20px;
+    font-size: 18px;
+}
+
+.sidebar-list-item:hover {
+    background-color: rgba(166, 53, 53, 0.2);
+    cursor: pointer;
+}
+.line{
+    width: 60%;
+}
+
+.sidebar-list-item>a {
+    text-decoration: none;
+    color: #9e9ea4;
+}
+.logout{
+    padding-top: 200px;
+}
+.sidebar-responsive {
+    display: inline !important;
+    position: absolute;
+    /*
+    we want the z-index of the sidebar higher so that
+    the charts are not showing over the sidebar 
+    on small screens
+  */
+    z-index: 12 !important;
+}

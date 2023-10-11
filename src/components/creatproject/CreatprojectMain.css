@@ -1,0 +1,67 @@
+.CreatprojectMain-container {
+    grid-area: main;
+    overflow-y: auto;
+    padding: 20px 20px;
+    color: rgba(255, 255, 255, 0.95);
+    background-image: url(../image/Headerbg.svg);
+    background-repeat: no-repeat;
+    top: 0;
+}
+
+.CreatprojectMain-title {
+    display: flex;
+    justify-content: center;
+
+}
+.CreatprojectMain-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    height: 80vh;
+    color: black;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 5px rgba(26, 112, 211, 0.3);
+    gap: 10px;
+}
+.CreatprojectMain-cards { 
+    margin-top: 30px;
+    width: 100%;
+}
+.textareaandbtn{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.Creatprojectmaintextarea{
+    width: 60%;
+    height: 80px;
+    padding: 10px;
+    border-radius: 15px;
+}
+.Creatprojectmainbtn{
+    height: 40px;
+}
+.Creatprojectform{
+    width: 350px;
+    padding: 20px;
+
+}
+.Creatprojectformfild{
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border-radius: 10px;
+}
+
+.projectform{
+    display: flex;
+    justify-content: left;
+}
+.Creatprojectforminput {
+    width: 73%;
+    padding: 10px;
+    border-radius: 10px;
+}
+.CreatprojectformStatus{
+    font-weight: bold;
+}
