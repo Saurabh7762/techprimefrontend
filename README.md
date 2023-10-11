@@ -1,5 +1,3 @@
-# Default email: Saurabh@gmail.com
-# Default Password: Saurabh
 
 # Default ID and Password
 email  kiran.gosavi@techprimelab.com
