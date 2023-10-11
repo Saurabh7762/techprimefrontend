@@ -5,7 +5,7 @@ function Main() {
     const [data, setData] = useState([]); 
 
     useEffect(() => {
-      const apiUrl = "https://techprimebackend-gnyo.onrender.com/api/project"; // Replace with your API URL
+      const apiUrl = "https://techprimebackend-gnyo.onrender.com/api/project"; 
 
       fetch(apiUrl)
         .then((response) => response.json()) // Parse the response as JSON
