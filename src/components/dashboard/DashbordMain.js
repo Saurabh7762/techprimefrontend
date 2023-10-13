@@ -32,6 +32,7 @@ function DashbordMain() {
   const [totalClosedIds, setTotalClosedIds] = useState(0);
   const [totalRuningIds, setTotalRuningIds] = useState(0);
   const [totalCancelIds, setTotalCancelIds] = useState(0);
+  const[closerlIds, setTotalcloserIds] = useState(0);
   useEffect(() => {
     // Make an HTTP request to the API
     fetch("https://techprimebackend-gnyo.onrender.com/api/project")
@@ -62,6 +63,11 @@ function DashbordMain() {
       //cancel
       const cancelIds = responseData.filter((item) => item.status === "Cancel");
       setTotalCancelIds(cancelIds.length);
+
+      const closerlIds = responseData.filter((item) => {
+       return item.status === "Running" && new Date(item.endDate).getTime()<new Date().getTime()
+      });
+      setTotalcloserIds(closerlIds.length);
     }
   }, [responseData]);
 
@@ -69,7 +75,7 @@ function DashbordMain() {
     <main className="main-container">
       <div className="main-title">
         <div>
-          <Logo />
+          <Logo className="logo"/>
         </div>
       </div>
 
@@ -99,7 +105,7 @@ function DashbordMain() {
           <div className="card-style"></div>
           <div className="card-inner">
             <h3>Closure Delay</h3>
-            <h1>2</h1>
+            <h1>{closerlIds}</h1>
           </div>
         </div>
         <div className="card">

@@ -1,41 +1,18 @@
 
-.grid-container {
+/* .grid-container {
     display: grid;
     grid-template-columns: 70px 1fr;
-    grid-template-rows: 0fr 3fr;
+    grid-template-rows: 0fr 2fr;
     grid-template-areas:
         'sidebar'
         'sidebar CreatprojectMain';
     height: 100vh;
-}
+} */
 
-
-
-/* Medium <= 992px */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 800px) {
     .grid-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.2fr 3fr;
-        grid-template-areas:
-            'CreatprojectMain';
-    }
-
-   
-
-    .CreatprojectMain-icon {
-        display: inline;
-        width: 100%;
-    }
-}
-
-/* Small <= 768px */
-
-@media screen and (max-width: 768px) {
-    .CreatprojectMain-cards {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        margin-bottom: 0;
-    }
+            grid-column: auto;
+            grid-template-columns: 0 1fr;
+        }
 } 
 
-/* Extra Small <= 576px */

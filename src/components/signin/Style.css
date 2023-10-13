@@ -19,6 +19,8 @@
 }
 .signinfirstp {
     color: white;
+    padding:0 0 40px 0;
+    margin: 0;
 }
 .signinlogin-container {
     width: 380px;
@@ -91,17 +93,28 @@ button:hover {
     body {
         background-color: white;
     }
-    .back{
-        display: none;
-    }
     .background{
         background-image: url("../image/loginbg1copy.svg");
         background-repeat: no-repeat;
     }
-    .bacgroundstye {
-        position:absolute;
-        top: 10%;
-        gap: 20px;
+    .signinfirstp{
+        padding-bottom: 50px;
+    }
+    .signinlogo{
+        width: 15%;
+    }
+    .signinlogin-container{
+        width: 100%;
+        padding: 0;
+        border: none;
+        border-radius: 10px;
+        box-shadow: none;
+    }
+    .signinbacgroundstye{
+        top: 2%;
+    }
+    .signinbackground{
+        gap: 0;
     }
     .login-container {
         border: none;
@@ -112,7 +125,7 @@ button:hover {
         display: block;
     }
     input {
-        width: 320px;
+        width: 100%;
         padding: 15px 0 15px 15px;
         border: 1px solid #ccc;
         border-radius: 5px;

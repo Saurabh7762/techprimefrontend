@@ -13,6 +13,7 @@
     justify-content: center;
 
 }
+
 .CreatprojectMain-card {
     display: flex;
     flex-direction: column;
@@ -23,45 +24,111 @@
     box-shadow: 0px 0px 5px rgba(26, 112, 211, 0.3);
     gap: 10px;
 }
-.CreatprojectMain-cards { 
+
+.CreatprojectMain-cards {
     margin-top: 30px;
     width: 100%;
 }
-.textareaandbtn{
+
+.textareaandbtn {
     display: flex;
     justify-content: space-between;
     padding: 20px;
 }
-.Creatprojectmaintextarea{
+
+.Creatprojectmaintextarea {
     width: 60%;
     height: 80px;
     padding: 10px;
     border-radius: 15px;
 }
-.Creatprojectmainbtn{
+
+.Creatprojectmainbtn {
     height: 40px;
 }
-.Creatprojectform{
+
+.Creatprojectform {
     width: 350px;
     padding: 20px;
 
 }
-.Creatprojectformfild{
+
+.Creatprojectformfild {
     width: 80%;
     padding: 10px;
     margin: 5px 0 15px 0;
     border-radius: 10px;
 }
 
-.projectform{
+.projectform {
     display: flex;
     justify-content: left;
 }
+
 .Creatprojectforminput {
     width: 73%;
     padding: 10px;
     border-radius: 10px;
 }
-.CreatprojectformStatus{
+
+.CreatprojectformStatus {
     font-weight: bold;
+}
+.Creatprojetformobil{
+    display: none;
+}
+@media only screen and (max-width: 800px) {
+    .textareaandbtn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        gap: 5px;
+    }
+
+    .projectform {
+        display: flex;
+        margin-top: 0;
+        padding-top: 0;
+        flex-direction: column;
+        justify-content: left;
+    }
+
+    .Creatprojectformfild {
+        width: 100%;
+    }
+
+    .Creatprojectform {
+        width: 100%;
+        padding: 0;
+    }
+
+    .projectform label {
+        width: 200px;
+    }
+
+    .CreatprojectMain-card {
+        box-shadow: none;
+    }
+
+    .Creatprojectforminput {
+        width: 85vw;
+        padding: 10px;
+    }
+
+    .Creatprojectmaintextarea {
+        width: 100%;
+        margin: 0;
+    }
+    .Creatprojetfordesktop{
+        display: none;
+    }
+    .Creatprojectformobil{
+        margin-bottom: 50px;
+    }
+}
+@media only screen and (min-width: 800px){
+.Creatprojecjtmainbtn{
+    display: none;
+}
 }

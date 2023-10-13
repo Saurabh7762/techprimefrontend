@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Sidebar.css";
 import { ReactComponent as Dash } from "../image/Dashboard.svg";
 import { ReactComponent as Proj } from "../image/Projectlist.svg";
@@ -8,22 +8,35 @@ import { Link } from 'react-router-dom';
 
 
 function Sidebar() {
+
   return (
     <aside id="sidebar">
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <Link to="/Dashbord"> <Dash /></Link>
+          <Link to="/Dashbord">
+            {" "}
+            <Dash />
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="/Projectlist"> <Proj /></Link>
+          <Link to="/Projectlist">
+            {" "}
+            <Proj />
+          </Link>
         </li>
         <hr className="line" />
         <li className="sidebar-list-item">
-           <Link to="/CreatProject"> <AddProj /></Link>
+          <Link to="/CreatProject">
+            {" "}
+            <AddProj />
+          </Link>
         </li>
         <div className="logout">
           <li className="sidebar-list-item">
-            <Link to="/"> <Logout /></Link>
+            <Link to="/">
+              {" "}
+              <Logout />
+            </Link>
           </li>
         </div>
       </ul>

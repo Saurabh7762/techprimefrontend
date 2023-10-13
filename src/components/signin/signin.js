@@ -44,8 +44,8 @@ function Signin() {
       <div className="signinbackground">
         <ReactLogo className="signinback" />
         <div className="signinbacgroundstye">
-          <Logo />
-          <p className="signinfirstp">Online Project Management</p>
+          <Logo className="signinlogo"/>
+          <span className="signinfirstp">Online Project Management</span>
           <div className="signinlogin-container">
             <p className="signincardtital">Login to get started</p>
             <form action="post" onSubmit={loginUser}>

@@ -54,7 +54,7 @@ function Main() {
     <main className="CreatprojectMain-container">
       <div className="CreatprojectMain-title">
         <div>
-          <Logo />
+          <Logo className="logo" />
         </div>
       </div>
 
@@ -69,7 +69,10 @@ function Main() {
               onChange={handleChange}
               required
             />
-            <button className="Creatprojectmainbtn" onClick={handleFormSubmit}>
+            <button
+              className="Creatprojectmainbtn Creatprojetfordesktop"
+              onClick={handleFormSubmit}
+            >
               Submit
             </button>
           </div>
@@ -193,6 +196,14 @@ function Main() {
                   Status:
                   <span className="CreatprojectformStatus">Registered</span>
                 </p>
+              </div>
+              <div className="Creatprojectformobil">
+                <button
+                  className="Creatprojecjtmainbtn"
+                  onClick={handleFormSubmit}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </form>

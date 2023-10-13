@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
 import { filterData } from "./dataUtils"; 
+import "./Projectlist.css"
 
 function Main() {
     const [data, setData] = useState([]); 
@@ -99,13 +100,11 @@ function Main() {
   const numbers=[...Array(npage+1).keys()].slice(1);
 
 
-
-
   return (
     <main className="CreatprojectMain-container">
       <div className="CreatprojectMain-title">
         <div>
-          <Logo />
+          <Logo className="logo" />
         </div>
       </div>
 
@@ -136,7 +135,7 @@ function Main() {
               </select>
             </div>
           </div>
-          <table className="table">
+          <table className="table fordesktop">
             <thead>
               <th>Project Name</th>
               <th>Reason</th>
@@ -210,6 +209,82 @@ function Main() {
               ))}
             </tbody>
           </table>
+
+          {/* tbale for mobile */}
+          <table className="table formobile">
+            <tbody>
+              {records.map((item, i) => (
+                <tr className="formobiledesign" key={i}>
+                  <th>Project Name</th>
+                  <td>
+                    {item.name}
+                    <p className="dateanddate">
+                      {item.startDate != null
+                        ? new Date(item.startDate).toLocaleDateString()
+                        : "null"}{" "}
+                      to
+                      {item.endDate != null
+                        ? new Date(item.endDate).toLocaleDateString()
+                        : "null"}
+                    </p>
+                  </td>
+                  <th>Reason</th>
+                  <td>{item.reason}</td>
+                  <th>Type</th>
+                  <td>{item.type}</td>
+                  <th>Divisions</th>
+                  <td>{item.division}</td>
+                  <th>Category</th>
+                  <td>{item.category}</td>
+                  <th>Priority</th>
+                  <td>{item.priority}</td>
+                  <th>Dept.</th>
+                  <td>{item.dept}</td>
+                  <th>Location</th>
+                  <td>{item.location}</td>
+                  <th>Status</th>
+                  <td>
+                    <p className="projectlistStatus">{item.status}</p>
+                  </td>
+                  <td>
+                    <button
+                      className={`projectlistStatusbtn ${getStatusClass(
+                        item.status,
+                        "Running"
+                      )}`}
+                      onClick={() => handleStatusChange("Running", item._id)}
+                    >
+                      Start
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className={`projectlistStatusbtn ${getStatusClass(
+                        item.status,
+                        "Closed"
+                      )}`}
+                      onClick={() => handleStatusChange("Closed", item._id)}
+                    >
+                      Close
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className={`projectlistStatusbtn ${getStatusClass(
+                        item.status,
+                        "Cancel"
+                      )}`}
+                      onClick={() => handleStatusChange("Cancel", item._id)}
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* _____________ */}
           <nav className="paginationNum">
             <ul className="pagination">
               <li className="page-item">
