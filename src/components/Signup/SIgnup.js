@@ -11,7 +11,7 @@ function SIgnup() {
     event.preventDefault();
 
     const response = await fetch(
-      "https://techprimebackend-gnyo.onrender.com/api/register",
+      "https://techprimebackend.vercel.app/api/register",
       {
         method: "POST",
         headers: {

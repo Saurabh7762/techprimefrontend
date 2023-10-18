@@ -17,7 +17,7 @@ function DashbordMain() {
 
   useEffect(() => {
     // Make a GET request to the API to fetch the data
-    fetch("https://techprimebackend-gnyo.onrender.com/api/department-data")
+    fetch("https://techprimebackend.vercel.app/api/department-data")
       .then((response) => response.json())
       .then((responseData) => {
         setData(responseData);
@@ -35,7 +35,7 @@ function DashbordMain() {
   const[closerlIds, setTotalcloserIds] = useState(0);
   useEffect(() => {
     // Make an HTTP request to the API
-    fetch("https://techprimebackend-gnyo.onrender.com/api/project")
+    fetch("https://techprimebackend.vercel.app/api/project")
       .then((response) => response.json())
       .then((json) => {
         setResponseData(json); // Store the API response in the state

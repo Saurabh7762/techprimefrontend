@@ -14,7 +14,7 @@ function Signin() {
     event.preventDefault();
 
     const response = await fetch(
-      "https://techprimebackend-gnyo.onrender.com/api/login",
+      "https://techprimebackend.vercel.app/api/login",
       {
         method: "POST",
         headers: {

@@ -1,55 +1,103 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import "./CreatprojectMain.css";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
 
-
 function Main() {
   const [formData, setFormData] = useState({
-    name: '',
-    startDate: null,
+    name: "",
+    startDate: "",
     endDate: "",
     status: "Registered",
-    reason: "Business",
-    type: "Internal",
-    priority: "High",
-    division: "Filters",
-    category: "Quality A",
-    dept: "Startegy",
-    location: "Pune",
+    reason: "",
+    type: "",
+    priority: "",
+    division: "",
+    category: "",
+    dept: "",
+    location: "",
   });
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const isFormValid = () => {
+    return (
+      formData.name &&
+      formData.reason &&
+      formData.startDate &&
+      formData.type &&
+      formData.priority &&
+      formData.division &&
+      formData.category &&
+      formData.dept &&
+      formData.endDate &&
+      formData.location
+    );
+  };
 
   async function handleFormSubmit(event) {
     event.preventDefault();
 
-    const response = await fetch(
-      "https://techprimebackend-gnyo.onrender.com/api/project",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+    // Convert the start and end dates to Date objects
+    const startDate = new Date(formData.startDate);
+    const endDate = new Date(formData.endDate);
+    if (!startDate || !endDate) {
+      alert("Please enter valid start and end dates.");
+    } else if (endDate < startDate) {
+      alert("End date should not be smaller than the start date.");
+    } else if (isFormValid()) {
+      const response = await fetch(
+        "https://techprimebackend.vercel.app/api/project",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-    if (response.ok) {
-        alert('Project created successfully');
+      if (response.ok) {
+        alert("Project created successfully");
         // Reset the form or navigate to another page if needed
+      } else {
+        alert("Error creating project");
+      }
     } else {
-        alert('Error creating project');
+      alert("Please fill in all required fields.");
     }
-  };
-
-
-
+  }
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
- 
+
+  //for current date
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000); // Update the date every second
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    setFormData((prevData) => ({
+      ...prevData,
+      startDate: formatDate(currentDate),
+    }));
+  }, []);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  };
+
   return (
     <main className="CreatprojectMain-container">
       <div className="CreatprojectMain-title">
@@ -86,6 +134,7 @@ function Main() {
                 value={formData.reason}
                 onChange={handleChange}
               >
+                <option value="">Select Reason</option>
                 <option value="Business">For Business</option>
                 <option value="Dealership">For Dealership</option>
                 <option value="Transport">For Transport</option>
@@ -98,6 +147,7 @@ function Main() {
                 value={formData.category}
                 onChange={handleChange}
               >
+                <option value="">Select Category</option>
                 <option value="Quality A">Quality A</option>
                 <option value="Quality B">Quality B</option>
                 <option value="Quality C">Quality C</option>
@@ -110,7 +160,8 @@ function Main() {
                 className="Creatprojectforminput"
                 name="startDate"
                 value={formData.startDate}
-                onChange={handleChange}
+                max={formData.endDate} // Set the maximum date to the end date
+                onChange={(e) => setFormData({ startDate: e.target.value })}
                 required
               />
             </div>
@@ -123,9 +174,10 @@ function Main() {
                 value={formData.type}
                 onChange={handleChange}
               >
-                <option value="Internal">Internal</option>
+                <option value="">Select Type</option>
                 <option value="External">External</option>
                 <option value="Vendor">Vendor</option>
+                <option value="Internal">Internal</option>
               </select>
               <label htmlFor="Priority">Priority</label>
               <select
@@ -135,6 +187,7 @@ function Main() {
                 value={formData.priority}
                 onChange={handleChange}
               >
+                <option value="">Select Priority</option>
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
                 <option value="Low">Low</option>
@@ -146,6 +199,7 @@ function Main() {
                 className="Creatprojectforminput"
                 name="endDate"
                 value={formData.endDate}
+                min={formData.startDate} // Set the minimum date to the start date
                 onChange={handleChange}
               />
             </div>
@@ -158,6 +212,7 @@ function Main() {
                 value={formData.division}
                 onChange={handleChange}
               >
+                <option value="">Select Division</option>
                 <option value="Filters">Filters</option>
                 <option value="Compressor">Compressor</option>
                 <option value="Pumps">Pumps</option>
@@ -172,6 +227,7 @@ function Main() {
                 value={formData.dept}
                 onChange={handleChange}
               >
+                <option value="">Select Department</option>
                 <option value="Startegy">Startegy</option>
                 <option value="Finance">Finance</option>
                 <option value="Quality">Quality</option>
@@ -186,6 +242,7 @@ function Main() {
                 value={formData.location}
                 onChange={handleChange}
               >
+                <option value="">Select Location</option>
                 <option value="Pune">Pune</option>
                 <option value="Ranchi">Ranchi</option>
                 <option value="Delhi">Delhi</option>

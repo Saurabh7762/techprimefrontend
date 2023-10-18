@@ -10,7 +10,7 @@ function Main() {
     const [sortPriority, setSortPriority] = useState("");
 
     useEffect(() => {
-      const apiUrl = "https://techprimebackend-gnyo.onrender.com/api/project"; 
+      const apiUrl = "https://techprimebackend.vercel.app/api/project"; 
 
       fetch(apiUrl)
         .then((response) => response.json()) // Parse the response as JSON
@@ -30,7 +30,7 @@ function Main() {
     //update status
       function handleStatusChange(newStatus, id) {
         // Make a PATCH request to update the project status
-        fetch(`https://techprimebackend-gnyo.onrender.com/api/project/${id}`, {
+        fetch(`https://techprimebackend.vercel.app/api/project/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -42,9 +42,7 @@ function Main() {
               // Status updated successfully
               alert("Update Successful!");
               // You can refresh the data here if needed
-              return fetch(
-                "https://techprimebackend-gnyo.onrender.com/api/project"
-              );
+              return fetch("https://techprimebackend.vercel.app/api/project");
             } else {
               alert("Error updating project status");
             }
