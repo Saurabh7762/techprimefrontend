@@ -27,6 +27,9 @@ table {
     border-collapse: collapse;
     width: 100%;
 }
+table tr td {
+    border-bottom: 1px solid #c8c8c8;
+}
 
 th {
     background-color: aliceblue;
@@ -39,9 +42,7 @@ td {
     padding: 8px 8px;
 }
 
-tr:nth-child(even) {
-    background-color: aliceblue;
-}
+
 
 .pagination {
     display: flex;

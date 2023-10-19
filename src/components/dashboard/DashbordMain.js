@@ -52,7 +52,7 @@ function DashbordMain() {
     <main className="main-container">
       <div className="main-title">
         <div>
-          <Logo className="logo"/>
+          <Logo className="logo" />
         </div>
       </div>
 
@@ -108,8 +108,18 @@ function DashbordMain() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="totalData" fill="#8884d8" />
-            <Bar dataKey="totalClosed" fill="#82ca9d" />
+            <Bar
+              dataKey="totalData"
+              fill="#8884d8"
+              barSize={15}
+              radius={[10, 10, 0, 0]}
+            />
+            <Bar
+              dataKey="totalClosed"
+              fill="#82ca9d"
+              barSize={15}
+              radius={[10, 10, 0, 0]}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>

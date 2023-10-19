@@ -59,12 +59,21 @@
     font-size: 18px;
     z-index: 1000;
 }
-.logout {
-    padding-top: 0px;
-    z-index: 1000;
-}
+
 .line {
     width: 0;
     display: none;
 }
+.logout {
+    position: fixed;
+    /* Remove fixed positioning for mobile view */
+    top: -180px;
+    /* Remove top position for mobile view */
+    right: 20px;
+    /* Remove right position for mobile view */
+    z-index: 1000;
+    color: white;
+
+}
+
 }

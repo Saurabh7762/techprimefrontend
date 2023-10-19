@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./CreatprojectMain.css";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
-
+import { useNavigate } from "react-router-dom";
 function Main() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     startDate: "",
@@ -33,6 +34,7 @@ function Main() {
   };
 
   async function handleFormSubmit(event) {
+
     event.preventDefault();
 
     // Convert the start and end dates to Date objects
@@ -56,7 +58,7 @@ function Main() {
 
       if (response.ok) {
         alert("Project created successfully");
-        // Reset the form or navigate to another page if needed
+        navigate("/Projectlist");
       } else {
         alert("Error creating project");
       }
@@ -65,6 +67,41 @@ function Main() {
     }
   }
 
+  // for validation
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    reason: "",
+    startDate: "",
+    endDate: "",
+    type: "",
+    priority: "",
+    division: "",
+    category: "",
+    dept: "",
+    location: "",
+  });
+
+  const validateField = (fieldName, value) => {
+    switch (fieldName) {
+      case "name":
+        if (!value) {
+          setErrorMessages((prevMessages) => ({
+            ...prevMessages,
+            name: "Project Theme required",
+          }));
+        } else {
+          setErrorMessages((prevMessages) => ({
+            ...prevMessages,
+            name: "",
+          }));
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -72,6 +109,8 @@ function Main() {
       ...prevFormData,
       [name]: value,
     }));
+      validateField(name, value);
+
   };
 
   //for current date
@@ -88,6 +127,7 @@ function Main() {
       ...prevData,
       startDate: formatDate(currentDate),
     }));
+
   }, []);
 
   const formatDate = (date) => {
@@ -110,13 +150,16 @@ function Main() {
         <div className="CreatprojectMain-card">
           <div className="textareaandbtn">
             <textarea
-              className="Creatprojectmaintextarea"
+              className={`Creatprojectmaintextarea ${
+                errorMessages.name && "invalid-input"
+              }`}
               placeholder="Enter Project Theme"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
             />
+
             <button
               className="Creatprojectmainbtn Creatprojetfordesktop"
               onClick={handleFormSubmit}
@@ -124,6 +167,11 @@ function Main() {
               Submit
             </button>
           </div>
+          {errorMessages.name && (
+            <p className="invalid-label invalid-labeltext">
+              {errorMessages.name}
+            </p>
+          )}
           <form className="projectform">
             <div className="Creatprojectform">
               <label htmlFor="Reason">Reason</label>
@@ -139,6 +187,7 @@ function Main() {
                 <option value="Dealership">For Dealership</option>
                 <option value="Transport">For Transport</option>
               </select>
+
               <label htmlFor="Category">Category</label>
               <select
                 id="Category"

@@ -88,6 +88,14 @@ button {
 button:hover {
     background-color: #007bff;
 }
+.invalid-input {
+    border: 1px solid red !important;
+    color: red;
+}
+
+.invalid-label {
+    color: red;
+}
 
 @media only screen and (max-width: 800px) {
     body {
