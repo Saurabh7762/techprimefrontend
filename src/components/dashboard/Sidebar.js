@@ -8,6 +8,14 @@ import { Link } from 'react-router-dom';
 
 
 function Sidebar() {
+  const handleLogout = () => {
+    // Clear the user's token from localStorage
+    localStorage.removeItem("token");
+
+    // Redirect to the signin page
+    window.location.href = "/"; // Alternatively, you can use history.push('/signin') if you have access to React Router's history.
+  };
+
 
   return (
     <aside id="sidebar">
@@ -33,10 +41,9 @@ function Sidebar() {
         </li>
         <div className="logout">
           <li className="sidebar-list-item">
-            <Link to="/">
-              {" "}
+            <div onClick={handleLogout}>
               <Logout />
-            </Link>
+            </div>
           </li>
         </div>
       </ul>
