@@ -27,7 +27,6 @@ function DashbordMain() {
       });
   }, []);
 
-  const [responseData, setResponseData] = useState([]);
   const [totalIds, setTotalIds] = useState(0);
   const [totalClosedIds, setTotalClosedIds] = useState(0);
   const [totalRuningIds, setTotalRuningIds] = useState(0);
@@ -35,41 +34,19 @@ function DashbordMain() {
   const[closerlIds, setTotalcloserIds] = useState(0);
   useEffect(() => {
     // Make an HTTP request to the API
-    fetch("https://techprimebackend.vercel.app/api/project")
+    fetch("https://techprimebackend.vercel.app/api/project/stats")
       .then((response) => response.json())
-      .then((json) => {
-        setResponseData(json); // Store the API response in the state
+      .then((data) => {
+        setTotalIds(data.totalIds);
+        setTotalClosedIds(data.totalClosedIds);
+        setTotalRuningIds(data.totalRunningIds);
+        setTotalCancelIds(data.totalCancelIds);
+        setTotalcloserIds(data.closerIds);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
-  useEffect(() => {
-    // Calculate the total number of "id" values
-    if (responseData && Array.isArray(responseData)) {
-      const ids = responseData.map((item) => item.id);
-      const total = ids.length;
-      setTotalIds(total);
-
-      //for close
-      const closedIds = responseData.filter((item) => item.status === "Closed");
-      setTotalClosedIds(closedIds.length);
-
-      //Running
-      const runningIds = responseData.filter((item) => item.status === "Running");
-      setTotalRuningIds(runningIds.length);
-
-      //cancel
-      const cancelIds = responseData.filter((item) => item.status === "Cancel");
-      setTotalCancelIds(cancelIds.length);
-
-      const closerlIds = responseData.filter((item) => {
-       return item.status === "Running" && new Date(item.endDate).getTime()<new Date().getTime()
-      });
-      setTotalcloserIds(closerlIds.length);
-    }
-  }, [responseData]);
 
   return (
     <main className="main-container">
