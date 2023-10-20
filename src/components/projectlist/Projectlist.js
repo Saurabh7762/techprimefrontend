@@ -1,103 +1,100 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
-import { filterData } from "./dataUtils"; 
-import "./Projectlist.css"
+import { filterData } from "./dataUtils";
+import "./Projectlist.css";
 import back from "../image/Headerbg.svg";
 
 function Main() {
-    const [data, setData] = useState([]); 
-    const [filteredData, setFilteredData] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [sortPriority, setSortPriority] = useState("");
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortPriority, setSortPriority] = useState("");
 
-    useEffect(() => {
-      const apiUrl = "https://techprimebackend.vercel.app/api/project"; 
+  useEffect(() => {
+    const apiUrl = "https://techprimebackend.vercel.app/api/project";
 
-      fetch(apiUrl)
-        .then((response) => response.json()) // Parse the response as JSON
-        .then((data) => setData(data)) // Update the data state with the fetched data
-        .catch((error) => console.error("Error fetching data:", error));
-    }, []);
-    
-    //for search
-    useEffect(() => {
-      // Use the imported filterData function
-      const filteredResults = filterData(data, searchTerm);
-      const sortedData = sortData(filteredResults, sortPriority);
-      setFilteredData(sortedData);
-    }, [searchTerm, data, sortPriority]);
+    fetch(apiUrl)
+      .then((response) => response.json()) // Parse the response as JSON
+      .then((data) => setData(data)) // Update the data state with the fetched data
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
+  //for search
+  useEffect(() => {
+    // Use the imported filterData function
+    const filteredResults = filterData(data, searchTerm);
+    const sortedData = sortData(filteredResults, sortPriority);
+    setFilteredData(sortedData);
+  }, [searchTerm, data, sortPriority]);
 
-    //update status
-      function handleStatusChange(newStatus, id) {
-        // Make a PATCH request to update the project status
-        fetch(`https://techprimebackend.vercel.app/api/project/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status: newStatus }),
-        })
-          .then((response) => {
-            if (response.status === 204) {
-              // Status updated successfully
-              alert("Update Successful!");
-              // You can refresh the data here if needed
-              return fetch("https://techprimebackend.vercel.app/api/project");
-            } else {
-              alert("Error updating project status");
-            }
-          })
-          .then((response) => response.json())
-          .then((updatedData) => {
-            // Update the component state with the new data
-            setData(updatedData);
-          })
-          .catch((error) => {
-            console.error("Error updating project status:", error);
-          });
-      }
+  //update status
+  function handleStatusChange(newStatus, id) {
+    // Make a PATCH request to update the project status
+    fetch(`https://techprimebackend.vercel.app/api/project/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: newStatus }),
+    })
+      .then((response) => {
+        if (response.status === 204) {
+          // Status updated successfully
+          alert("Update Successful!");
+          // You can refresh the data here if needed
+          return fetch("https://techprimebackend.vercel.app/api/project");
+        } else {
+          alert("Error updating project status");
+        }
+      })
+      .then((response) => response.json())
+      .then((updatedData) => {
+        // Update the component state with the new data
+        setData(updatedData);
+      })
+      .catch((error) => {
+        console.error("Error updating project status:", error);
+      });
+  }
 
-    //------
-    
-    //sort deta
-    const sortData = (data, priority) => {
-      const customOrders = {
-        High: ["High", "Medium", "Low"],
-        Medium: ["Medium", "Low", "High"],
-        Low: ["Low", "Medium", "High"],
-      };
+  //------
 
-      if (priority in customOrders) {
-        return data.sort((a, b) => {
-          const order = customOrders[priority];
-          return order.indexOf(a.priority) - order.indexOf(b.priority);
-        });
-      } else {
-        // If the selected priority is not in customOrders, sort without custom order
-        return data.sort((a, b) => (a.priority > b.priority ? 1 : -1));
-      }
+  //sort deta
+  const sortData = (data, priority) => {
+    const customOrders = {
+      High: ["High", "Medium", "Low"],
+      Medium: ["Medium", "Low", "High"],
+      Low: ["Low", "Medium", "High"],
     };
 
-    //----
+    if (priority in customOrders) {
+      return data.sort((a, b) => {
+        const order = customOrders[priority];
+        return order.indexOf(a.priority) - order.indexOf(b.priority);
+      });
+    } else {
+      // If the selected priority is not in customOrders, sort without custom order
+      return data.sort((a, b) => (a.priority > b.priority ? 1 : -1));
+    }
+  };
 
+  //----
 
-    //active btn
-    const getStatusClass = (status, currentStatus) => {
-      if (status === currentStatus) {
-        return "active-button";
-      }
-      return "";
-    };
-    //-----
-  const [cuurrentPage, setcurrentPage]= useState(1)
-  const recordsPerPage=7;
-  const lastIndex=cuurrentPage * recordsPerPage;
-  const firstIndex=lastIndex-recordsPerPage;
+  //active btn
+  const getStatusClass = (status, currentStatus) => {
+    if (status === currentStatus) {
+      return "active-button";
+    }
+    return "";
+  };
+  //-----
+  const [cuurrentPage, setcurrentPage] = useState(1);
+  const recordsPerPage = 7;
+  const lastIndex = cuurrentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
   const records = filteredData.slice(firstIndex, lastIndex);
-  const npage=Math.ceil(data.length/recordsPerPage);
-  const numbers=[...Array(npage+1).keys()].slice(1);
-
+  const npage = Math.ceil(data.length / recordsPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
 
   return (
     <main className="main-container">
@@ -162,7 +159,7 @@ function Main() {
                       {item.startDate != null
                         ? new Date(item.startDate).toLocaleDateString()
                         : "null"}{" "}
-                      to
+                      to{" "}
                       {item.endDate != null
                         ? new Date(item.endDate).toLocaleDateString()
                         : "null"}
@@ -224,12 +221,12 @@ function Main() {
               <div className="formobiledesign" key={i}>
                 <div className="projtitalandstatus">
                   <div>
-                    {item.name}
+                    <h4 className="namemob">{item.name}</h4>
                     <p className="dateanddate">
                       {item.startDate != null
                         ? new Date(item.startDate).toLocaleDateString()
                         : "null"}{" "}
-                      to
+                      to{" "}
                       {item.endDate != null
                         ? new Date(item.endDate).toLocaleDateString()
                         : "null"}
@@ -239,57 +236,70 @@ function Main() {
                     <p className="projectlistStatus">{item.status}</p>
                   </div>
                 </div>
+                <li className="reasonmob">
+                  <span>Reason: </span>
+                  <span className="makeitboldmob">{item.reason}</span>
+                </li>
+                <li className="typemob">
+                  <div>Type : </div>
+                  <p className="typemobi makeitboldmob">{item.type}</p>
+                  <li className="Categorymob">
+                    <span className="spanCategorymob">Category: </span>
+                    <span className="makeitboldmob">{item.category}</span>
+                  </li>
+                </li>
+                <li className="typemob">
+                  <div>Div : </div>
+                  <p className="typemobi makeitboldmob">{item.division}</p>
+                  <li className="Deptmob">
+                    <span>Dept: </span>
+                    <span className="makeitboldmob">{item.dept}</span>
+                  </li>
+                </li>
+                <li className="Locationmob">
+                  <span>Location: </span>
+                  <span className="makeitboldmob">{item.location}</span>
+                </li>
+                <li className="Prioritymob">
+                  <span>Priority: </span>
+                  <span className="makeitboldmob">{item.priority}</span>
+                </li>
 
-                <div>Reason:</div>
-                <p>{item.reason}</p>
-                <div>Type</div>
-                <div>{item.type}</div>
-                <div>Divisions</div>
-                <div>{item.division}</div>
-                <div>Category</div>
-                <div>{item.category}</div>
-                <div>Priority</div>
-                <div>{item.priority}</div>
-                <div>Dept.</div>
-                <div>{item.dept}</div>
-                <div>Location</div>
-                <div>{item.location}</div>
-
-<div className="statusbtnmob">
-                <div>
-                  <button
-                    className={`projectlistStatusbtn ${getStatusClass(
-                      item.status,
-                      "Running"
-                    )}`}
-                    onClick={() => handleStatusChange("Running", item._id)}
-                  >
-                    Start
-                  </button>
+                <div className="statusbtnmob">
+                  <div className="mobbtnstyle">
+                    <button
+                      className={`projectlistStatusbtn ${getStatusClass(
+                        item.status,
+                        "Running"
+                      )}`}
+                      onClick={() => handleStatusChange("Running", item._id)}
+                    >
+                      Start
+                    </button>
+                  </div>
+                  <div className="mobbtnstyle">
+                    <button
+                      className={`projectlistStatusbtn ${getStatusClass(
+                        item.status,
+                        "Closed"
+                      )}`}
+                      onClick={() => handleStatusChange("Closed", item._id)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                  <div className="mobbtnstyle">
+                    <button
+                      className={`projectlistStatusbtn ${getStatusClass(
+                        item.status,
+                        "Cancel"
+                      )}`}
+                      onClick={() => handleStatusChange("Cancel", item._id)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <button
-                    className={`projectlistStatusbtn ${getStatusClass(
-                      item.status,
-                      "Closed"
-                    )}`}
-                    onClick={() => handleStatusChange("Closed", item._id)}
-                  >
-                    Close
-                  </button>
-                </div>
-                <div>
-                  <button
-                    className={`projectlistStatusbtn ${getStatusClass(
-                      item.status,
-                      "Cancel"
-                    )}`}
-                    onClick={() => handleStatusChange("Cancel", item._id)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
               </div>
             ))}
           </div>
@@ -327,21 +337,18 @@ function Main() {
       </div>
     </main>
   );
-  function prePage(){
-    if(cuurrentPage !== 1){
-      setcurrentPage(cuurrentPage -1)
+  function prePage() {
+    if (cuurrentPage !== 1) {
+      setcurrentPage(cuurrentPage - 1);
     }
-
   }
-  function changeCPage(id){
-    setcurrentPage(id)
-
+  function changeCPage(id) {
+    setcurrentPage(id);
   }
-  function nextPage(){
-    if(cuurrentPage !== npage){
-      setcurrentPage(cuurrentPage+1)
+  function nextPage() {
+    if (cuurrentPage !== npage) {
+      setcurrentPage(cuurrentPage + 1);
     }
-
   }
 }
 
