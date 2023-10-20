@@ -23,6 +23,7 @@ table {
     border-collapse: collapse;
     width: 100%;
 }
+
 table tr td {
     border-bottom: 1px solid #c8c8c8;
     border-spacing: 30px;
@@ -31,10 +32,14 @@ table tr td {
 th {
     background-color: aliceblue;
 }
-td:nth-child(1),th:nth-child(1){
+
+td:nth-child(1),
+th:nth-child(1) {
     padding-left: 20px;
 }
-td:last-child, th:last-child {
+
+td:last-child,
+th:last-child {
     padding-right: 20px;
 }
 
@@ -43,7 +48,9 @@ td {
     text-align: left;
     padding: 8px 8px;
 }
-thead, tbody{
+
+thead,
+tbody {
     padding: 30px !important;
 }
 
@@ -118,40 +125,75 @@ td p {
 
 @media only screen and (max-width: 800px) {
 
-    .formobiledesign{
-        background-color: red;
+    .formobiledesign {
+        background-color: white;
         margin-bottom: 20px;
-        padding: 20px;
-        color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        color: black;
     }
-    .projtitalandstatus{
+
+    .projtitalandstatus {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .dateanddate{
+
+    .dateanddate {
         margin: 2px 0 0 0;
     }
-    .statusbtnmob{
+    .namemob{
+        margin: 0;
+    }
+
+    .statusbtnmob {
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
     }
 
+    .typemob {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 0 0;
+    }
+    .typemobi{
+        margin: 0;
+    }
+        .reasonmob{
+            padding: 20px 0 0 0;
+            list-style: none;
+        }
+
+    .Locationmob,
+    .Prioritymob {
+        padding: 10px 0 0 0;
+        list-style: none;
+    }
+    .Categorymob, .Deptmob{
+        padding: 0 0 0 10px;
+    }
+    .makeitboldmob{
+        font-weight: 500;
+    }
+
     /* ----------------------- */
-    .Projectlisttable{
+    .Projectlisttable {
         background: none;
         box-shadow: none;
         padding-top: 10px;
         margin-bottom: 0;
     }
-    .ProjectlistSinput{
+
+    .ProjectlistSinput {
         background: none;
 
     }
-    #SortBy{
+
+    #SortBy {
         background: none;
     }
-    
+
 
     .table {
         display: block;
@@ -166,10 +208,6 @@ td p {
     .paginationNum {
         padding-top: -10px;
         padding-bottom: 30px;
-    }
-
-    .ProjectlistMain-cards {
-        box-shadow: none;
     }
 
     .ProjectlistSinput {
