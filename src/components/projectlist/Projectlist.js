@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
 import { filterData } from "./dataUtils"; 
 import "./Projectlist.css"
+import back from "../image/Headerbg.svg";
 
 function Main() {
     const [data, setData] = useState([]); 
@@ -99,14 +100,18 @@ function Main() {
 
 
   return (
-    <main className="CreatprojectMain-container">
-      <div className="CreatprojectMain-title">
-        <div>
-          <Logo className="logo" />
+    <main className="main-container">
+      <img className="back" src={back} alt="back" />
+      <div className="main-container-main">
+        <div className="main-container-header">
+          <h2 className="creatprojecttital">Project Listing</h2>
+          <div className="main-title">
+            <div>
+              <Logo className="logo" />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="ProjectlistMain-cards">
         <div className="Projectlisttable">
           <div className="projectlisttop">
             <div>
@@ -118,7 +123,7 @@ function Main() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div>
+            <div className="Sortedby">
               <span>Sort By: </span>
               <select
                 id="SortBy"
@@ -144,6 +149,9 @@ function Main() {
               <th>Dept.</th>
               <th>Location</th>
               <th>Status</th>
+              <th></th>
+              <th></th>
+              <th></th>
             </thead>
             <tbody>
               {records.map((item, i) => (
@@ -207,14 +215,15 @@ function Main() {
               ))}
             </tbody>
           </table>
+        </div>
 
-          {/* tbale for mobile */}
-          <table className="table formobile">
-            <tbody>
-              {records.map((item, i) => (
-                <tr className="formobiledesign" key={i}>
-                  <th>Project Name</th>
-                  <td>
+        {/* tbale for mobile */}
+        <div className="table formobile">
+          <div>
+            {records.map((item, i) => (
+              <div className="formobiledesign" key={i}>
+                <div className="projtitalandstatus">
+                  <div>
                     {item.name}
                     <p className="dateanddate">
                       {item.startDate != null
@@ -225,93 +234,96 @@ function Main() {
                         ? new Date(item.endDate).toLocaleDateString()
                         : "null"}
                     </p>
-                  </td>
-                  <th>Reason</th>
-                  <td>{item.reason}</td>
-                  <th>Type</th>
-                  <td>{item.type}</td>
-                  <th>Divisions</th>
-                  <td>{item.division}</td>
-                  <th>Category</th>
-                  <td>{item.category}</td>
-                  <th>Priority</th>
-                  <td>{item.priority}</td>
-                  <th>Dept.</th>
-                  <td>{item.dept}</td>
-                  <th>Location</th>
-                  <td>{item.location}</td>
-                  <th>Status</th>
-                  <td>
+                  </div>
+                  <div>
                     <p className="projectlistStatus">{item.status}</p>
-                  </td>
-                  <td>
-                    <button
-                      className={`projectlistStatusbtn ${getStatusClass(
-                        item.status,
-                        "Running"
-                      )}`}
-                      onClick={() => handleStatusChange("Running", item._id)}
-                    >
-                      Start
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className={`projectlistStatusbtn ${getStatusClass(
-                        item.status,
-                        "Closed"
-                      )}`}
-                      onClick={() => handleStatusChange("Closed", item._id)}
-                    >
-                      Close
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className={`projectlistStatusbtn ${getStatusClass(
-                        item.status,
-                        "Cancel"
-                      )}`}
-                      onClick={() => handleStatusChange("Cancel", item._id)}
-                    >
-                      Cancel
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                </div>
 
-          {/* _____________ */}
-          <nav className="paginationNum">
-            <ul className="pagination">
-              <li className="page-item">
-                <a href="#" className="page-link" onClick={prePage}>
-                  Prev
-                </a>
-              </li>
-              {numbers.map((n, i) => (
-                <li
-                  className={`page-item ${cuurrentPage === n ? "active" : ""}`}
-                  key={1}
-                >
-                  <a
-                    href="#"
-                    className="page-link"
-                    onClick={() => changeCPage(n)}
+                <div>Reason:</div>
+                <p>{item.reason}</p>
+                <div>Type</div>
+                <div>{item.type}</div>
+                <div>Divisions</div>
+                <div>{item.division}</div>
+                <div>Category</div>
+                <div>{item.category}</div>
+                <div>Priority</div>
+                <div>{item.priority}</div>
+                <div>Dept.</div>
+                <div>{item.dept}</div>
+                <div>Location</div>
+                <div>{item.location}</div>
+
+<div className="statusbtnmob">
+                <div>
+                  <button
+                    className={`projectlistStatusbtn ${getStatusClass(
+                      item.status,
+                      "Running"
+                    )}`}
+                    onClick={() => handleStatusChange("Running", item._id)}
                   >
-                    {n}
-                  </a>
-                </li>
-              ))}
-              <li className="page-item">
-                <a href="#" className="page-link" onClick={nextPage}>
-                  Next
+                    Start
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className={`projectlistStatusbtn ${getStatusClass(
+                      item.status,
+                      "Closed"
+                    )}`}
+                    onClick={() => handleStatusChange("Closed", item._id)}
+                  >
+                    Close
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className={`projectlistStatusbtn ${getStatusClass(
+                      item.status,
+                      "Cancel"
+                    )}`}
+                    onClick={() => handleStatusChange("Cancel", item._id)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* _____________ */}
+        <nav className="paginationNum">
+          <ul className="pagination">
+            <li className="page-item">
+              <a href="#" className="page-link" onClick={prePage}>
+                Prev
+              </a>
+            </li>
+            {numbers.map((n, i) => (
+              <li
+                className={`page-item ${cuurrentPage === n ? "active" : ""}`}
+                key={1}
+              >
+                <a
+                  href="#"
+                  className="page-link"
+                  onClick={() => changeCPage(n)}
+                >
+                  {n}
                 </a>
               </li>
-            </ul>
-          </nav>
-        </div>
+            ))}
+            <li className="page-item">
+              <a href="#" className="page-link" onClick={nextPage}>
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </main>
   );

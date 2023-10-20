@@ -3,13 +3,18 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
+
+
 import React, { useEffect, useState } from 'react'
 import "./DashbordMain.css";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
+import  back  from "../image/Headerbg.svg";
+
+
 
 function DashbordMain() {
 
@@ -47,83 +52,132 @@ function DashbordMain() {
         console.error("Error fetching data:", error);
       });
   }, []);
+  function CustomXAxisTick({ x, y, payload }) {
+    const categoryMap = {
+      Startegy: "STR",
+      Finance: "FIN",
+      Quality: "QUA",
+      Maintenance: "MAI",
+      Stores: "STO",
+      // Add more mappings as needed
+    };
+    const abbreviation = categoryMap[payload.value];
+    const totalData = data.find((item) => item._id === payload.value).totalData;
+    const totalClosed = data.find(
+      (item) => item._id === payload.value
+    ).totalClosed;
+    const percentageData = ((totalClosed/totalData ) * 100).toFixed(0);
+
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x={0}
+          y={16}
+          dy={-2}
+          textAnchor="middle"
+          fill="#666"
+          fontWeight="bold"
+        >{`${percentageData}%`}</text>
+        <text x={0} y={0} dy={30} textAnchor="middle" fill="#666">
+          {abbreviation}
+        </text>
+      </g>
+    );
+  }
+  
+
 
   return (
-    <main className="main-container">
-      <div className="main-title">
-        <div>
-          <Logo className="logo" />
-        </div>
-      </div>
+    <>
+      <main className="main-container">
+        <img className="back" src={back} alt="back" />
+        <div className="main-container-main">
+          <div className="main-container-header">
+            <h2 >Dashboard</h2>
+            <div className="main-title">
+              <div>
+                <Logo className="logo" />
+              </div>
+            </div>
+          </div>
 
-      <div className="main-cards">
-        <div className="card">
-          <div className="card-style"></div>
-          <div className="card-inner">
-            <h3>Total</h3>
-            <h1>{totalIds}</h1>
+          <div className="main-cards">
+            <div className="card">
+              <div className="card-style"></div>
+              <div className="card-inner">
+                <p>Total</p>
+                <h1>{totalIds}</h1>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-style"></div>
+              <div className="card-inner">
+                <p>Closed</p>
+                <h1>{totalClosedIds}</h1>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-style"></div>
+              <div className="card-inner">
+                <p>Running</p>
+                <h1>{totalRuningIds}</h1>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-style"></div>
+              <div className="card-inner">
+                <p>Closure Delay</p>
+                <h1>{closerlIds}</h1>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-style"></div>
+              <div className="card-inner">
+                <p>Cancelled</p>
+                <h1>{totalCancelIds}</h1>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="chartsHeading">Department wise - Total Vs Closed</h3>
+          </div>
+          <div className="charts">
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart
+                data={data}
+                margin={{
+                  right: 30,
+                }}
+              >
+                <XAxis height={60} tick={<CustomXAxisTick />} dataKey="_id" />
+                <YAxis />
+                <Legend iconType="circle" />
+                <Bar
+                  dataKey="totalData"
+                  name="Total"
+                  fill="#8884d8"
+                  barSize={10}
+                  radius={[10, 10, 10, 10]}
+                  dot={{ r: 5 }}
+                >
+                  <LabelList dataKey="totalData" position="top" />
+                </Bar>
+                <Bar
+                  dataKey="totalClosed"
+                  name="Closed"
+                  fill="#82ca9d"
+                  barSize={10}
+                  radius={[10, 10, 10, 10]}
+                >
+                  <LabelList dataKey="totalClosed" position="top" />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
-        <div className="card">
-          <div className="card-style"></div>
-          <div className="card-inner">
-            <h3>Closed</h3>
-            <h1>{totalClosedIds}</h1>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-style"></div>
-          <div className="card-inner">
-            <h3>Running</h3>
-            <h1>{totalRuningIds}</h1>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-style"></div>
-          <div className="card-inner">
-            <h3>Closure Delay</h3>
-            <h1>{closerlIds}</h1>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-style"></div>
-          <div className="card-inner">
-            <h3>Cancelled</h3>
-            <h1>{totalCancelIds}</h1>
-          </div>
-        </div>
-      </div>
-      <div className="charts">
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart
-            data={data}
-            margin={{
-              top: 10,
-              right: 20,
-              left: 5,
-              bottom: 5,
-            }}
-          >
-            <XAxis dataKey="_id" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar
-              dataKey="totalData"
-              fill="#8884d8"
-              barSize={15}
-              radius={[10, 10, 0, 0]}
-            />
-            <Bar
-              dataKey="totalClosed"
-              fill="#82ca9d"
-              barSize={15}
-              radius={[10, 10, 0, 0]}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
 

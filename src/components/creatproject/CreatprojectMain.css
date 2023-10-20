@@ -17,18 +17,16 @@
 .CreatprojectMain-card {
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
-    height: 80vh;
+    border-radius: 10px;
     color: black;
+    margin: 30px 0 0 0;
+    padding: 20px;
     background-color: #ffffff;
     box-shadow: 0px 0px 5px rgba(26, 112, 211, 0.3);
     gap: 10px;
 }
 
-.CreatprojectMain-cards {
-    margin-top: 30px;
-    width: 100%;
-}
+
 
 .textareaandbtn {
     display: flex;
@@ -81,14 +79,17 @@
     margin: -15px 0 0 25px;
 }
 @media only screen and (max-width: 800px) {
+    .CreatprojectMain-card{
+        margin: 60px 0 50px 0;
+    }
     .textareaandbtn {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 20px;
-        gap: 5px;
+        padding: 0;
+        margin-top: 30px;
     }
-
+.creatprojecttital{
+    white-space: nowrap;
+}
     .projectform {
         display: flex;
         margin-top: 0;
@@ -103,9 +104,8 @@
 
     .Creatprojectform {
         width: 100%;
-        padding: 0;
+        padding: 15px 0 0 0;
     }
-
     .projectform label {
         width: 200px;
     }
@@ -115,7 +115,7 @@
     }
 
     .Creatprojectforminput {
-        width: 85vw;
+        width: 80vw;
         padding: 10px;
     }
 
@@ -126,9 +126,8 @@
     .Creatprojetfordesktop{
         display: none;
     }
-    .Creatprojectformobil{
-        margin-bottom: 50px;
-    }
+    
+    
 }
 @media only screen and (min-width: 800px){
 .Creatprojecjtmainbtn{
