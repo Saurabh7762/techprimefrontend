@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "../image/Logocopy.svg";
 import { filterData } from "./dataUtils";
@@ -60,6 +61,7 @@ function Main() {
   //------
 
   //sort deta
+  /*
   const sortData = (data, priority) => {
     const customOrders = {
       High: ["High", "Medium", "Low"],
@@ -75,6 +77,102 @@ function Main() {
     } else {
       // If the selected priority is not in customOrders, sort without custom order
       return data.sort((a, b) => (a.priority > b.priority ? 1 : -1));
+    }
+  };
+  */
+
+  const sortData = (data, sortBy) => {
+    //for Reason
+    if (sortBy === "Reason") {
+      return data.sort((a, b) => {
+        const order = {
+          Business: 3,
+          Dealership: 2,
+          Transport: 1,
+        };
+        return order[a.reason] - order[b.reason];
+      });
+      // for Category
+    } else if (sortBy === "Category") {
+      return data.sort((a, b) => {
+        const order = {
+          "Quality A": 1,
+          "Quality B": 2,
+          "Quality C": 3,
+          "Quality D": 4,
+        };
+        return order[a.category] - order[b.category];
+      });
+      //for Type
+    } else if (sortBy === "Type") {
+      return data.sort((a, b) => {
+        const order = {
+          External: 1,
+          Vendor: 2,
+          Internal: 3,
+          Priority: 4,
+        };
+        return order[a.type] - order[b.type];
+      });
+      //for Priority
+    } else if (sortBy === "Priority") {
+      const customOrders = {
+        High: 1,
+        Medium: 2,
+        Low: 3,
+      };
+      return data.sort(
+        (a, b) => customOrders[a.priority] - customOrders[b.priority]
+      );
+      //for Division
+    } else if (sortBy === "Division") {
+      return data.sort((a, b) => a.division.localeCompare(b.division));
+      // for Department
+    } else if (sortBy === "Department") {
+      return data.sort((a, b) => a.dept.localeCompare(b.dept));
+      //for Location
+    } else if (sortBy === "Location") {
+      return data.sort((a, b) => a.location.localeCompare(b.location));
+      //for starting Date
+    } else if (sortBy === "StartDate") {
+      return data.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+      //for End date
+    } else if (sortBy === "EndDate") {
+      return data.sort((a, b) => {
+        const dateA = new Date(a.endDate);
+        const dateB = new Date(b.endDate);
+        const currentDate = new Date();
+
+        const differenceA = dateA - currentDate;
+        const differenceB = dateB - currentDate;
+
+        if (
+          (a.status === "Running" || a.status === "Registered") &&
+          b.status !== "Running" &&
+          b.status !== "Registered"
+        ) {
+          return -1; // "Running" and "Registered" statuses come before others
+        } else if (
+          a.status !== "Running" &&
+          a.status !== "Registered" &&
+          (b.status === "Running" || b.status === "Registered")
+        ) {
+          return 1; // "Running" and "Registered" statuses come before others
+        } else if (differenceA < 0 && differenceB < 0) {
+          // Both dates are in the past, so sort them in ascending order
+          return differenceA - differenceB;
+        } else if (differenceA >= 0 && differenceB >= 0) {
+          // Both dates are in the future, so sort them in ascending order
+          return differenceA - differenceB;
+        } else {
+          // One date is in the past, and the other is in the future
+          // Sort the past date first, followed by the future date
+          return differenceA - differenceB;
+        }
+      });
+    } else {
+      // Default case, no sorting
+      return data;
     }
   };
 
@@ -128,10 +226,16 @@ function Main() {
                 value={sortPriority}
                 onChange={(e) => setSortPriority(e.target.value)}
               >
-                <option value="">Priority</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
+                <option value="">Select</option>
+                <option value="Reason">Reason</option>
+                <option value="Category">Category</option>
+                <option value="Type">Type</option>
+                <option value="Priority">Priority</option>
+                <option value="Division">Division</option>
+                <option value="Department">Department</option>
+                <option value="Location">Location</option>
+                <option value="StartDate">Start Date</option>
+                <option value="EndDate">End Date</option>
               </select>
             </div>
           </div>

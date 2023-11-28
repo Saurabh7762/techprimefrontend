@@ -32,26 +32,24 @@ function DashbordMain() {
       });
   }, []);
 
-  const [totalIds, setTotalIds] = useState(0);
-  const [totalClosedIds, setTotalClosedIds] = useState(0);
-  const [totalRuningIds, setTotalRuningIds] = useState(0);
-  const [totalCancelIds, setTotalCancelIds] = useState(0);
-  const[closerlIds, setTotalcloserIds] = useState(0);
+  const [projectStats, setProjectStats] = useState([]);
   useEffect(() => {
     // Make an HTTP request to the API
     fetch("https://techprimebackend.vercel.app/api/project/stats")
       .then((response) => response.json())
-      .then((data) => {
-        setTotalIds(data.totalIds);
-        setTotalClosedIds(data.totalClosedIds);
-        setTotalRuningIds(data.totalRunningIds);
-        setTotalCancelIds(data.totalCancelIds);
-        setTotalcloserIds(data.closerIds);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+      .then((data) => setProjectStats(data))
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+    const desiredOrder = [
+      "Total",
+      "Closed",
+      "Running",
+      "Closure Delay",
+      "Cancel",
+    ];
+
+
   function CustomXAxisTick({ x, y, payload }) {
     const categoryMap = {
       Startegy: "STR",
@@ -94,7 +92,7 @@ function DashbordMain() {
         <img className="back" src={back} alt="back" />
         <div className="main-container-main">
           <div className="main-container-header">
-            <h2 >Dashboard</h2>
+            <h2>Dashboard</h2>
             <div className="main-title">
               <div>
                 <Logo className="logo" />
@@ -103,41 +101,18 @@ function DashbordMain() {
           </div>
 
           <div className="main-cards">
-            <div className="card">
-              <div className="card-style"></div>
-              <div className="card-inner">
-                <p>Total</p>
-                <h1>{totalIds}</h1>
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-style"></div>
-              <div className="card-inner">
-                <p>Closed</p>
-                <h1>{totalClosedIds}</h1>
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-style"></div>
-              <div className="card-inner">
-                <p>Running</p>
-                <h1>{totalRuningIds}</h1>
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-style"></div>
-              <div className="card-inner">
-                <p>Closure Delay</p>
-                <h1>{closerlIds}</h1>
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-style"></div>
-              <div className="card-inner">
-                <p>Cancelled</p>
-                <h1>{totalCancelIds}</h1>
-              </div>
-            </div>
+            {desiredOrder.map((status) => {
+              const stat = projectStats.find((stat) => stat.status === status);
+              return (
+                <div className="card" key={status}>
+                  <div className="card-style"></div>
+                  <div className="card-inner">
+                    <p>{status}</p>
+                    <h1>{stat ? stat.count : 0}</h1>
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <div>
             <h3 className="chartsHeading">Department wise - Total Vs Closed</h3>
@@ -147,6 +122,7 @@ function DashbordMain() {
               <BarChart
                 data={data}
                 margin={{
+                  top:5,
                   right: 30,
                 }}
               >

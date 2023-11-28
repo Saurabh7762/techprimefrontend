@@ -131,6 +131,7 @@ function Main() {
       startDate: formatDate(currentDate),
     }));
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formatDate = (date) => {
